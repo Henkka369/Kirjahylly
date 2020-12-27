@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "660533525717",
+    "project_id": "kirjahylly-2a79d",
+    "storage_bucket": "kirjahylly-2a79d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660533525717:android:5ae3edd304b01ea541365c",
+        "android_client_info": {
+          "package_name": "com.example.kirjahylly"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660533525717-mlnpm7mh44c3b0j5rj8f5hvhpsdt7m4m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVv3Cc5et06yXB2-Vayj1DHcmMIxnO25o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660533525717-mlnpm7mh44c3b0j5rj8f5hvhpsdt7m4m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
