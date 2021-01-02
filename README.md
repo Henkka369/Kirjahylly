@@ -7,4 +7,4 @@
 - [ ] Kirjahyllyn lisäys tietokantaan
 - [ ] Kirjan lisäys tietokantaan
 - [ ] Käyttäjän uloskirjaus
-- [ ] Luetut kirjat pois
+- [x] Luetut kirjat pois
