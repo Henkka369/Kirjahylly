@@ -6,5 +6,5 @@
 
 - [ ] Kirjahyllyn lisäys tietokantaan
 - [ ] Kirjan lisäys tietokantaan
-- [ ] Käyttäjän uloskirjaus
+- [x] Käyttäjän uloskirjaus
 - [x] Luetut kirjat pois
