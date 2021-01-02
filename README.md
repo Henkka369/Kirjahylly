@@ -2,7 +2,7 @@
 
 - [ ] Kameran käyttö
 - [ ] Kirjautumistietojen säilytys uudelleen käynnistyksen yli
-- [ ] Ohjelmiston oletusvärien muuttaminen
+- [x] Ohjelmiston oletusvärien muuttaminen
 
 - [ ] Kirjahyllyn lisäys tietokantaan
 - [ ] Kirjan lisäys tietokantaan
