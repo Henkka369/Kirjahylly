@@ -1,6 +1,6 @@
 # Kirjahylly
 
-- [ ] Kameran käyttö
+- [x] Kameran käyttö
 - [ ] Kirjautumistietojen säilytys uudelleen käynnistyksen yli
 - [x] Ohjelmiston oletusvärien muuttaminen
 
