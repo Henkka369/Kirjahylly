@@ -1,7 +1,11 @@
 package com.example.kirjahylly
 
+import android.app.Activity
 import android.content.ContentValues
+import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -23,8 +27,10 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 
+private const val REQUEST_CODE = 42
 class ProfileFragment : Fragment() {
 
     override fun onCreateView(
@@ -48,16 +54,22 @@ class ProfileFragment : Fragment() {
         recycler.layoutManager = LinearLayoutManager(context)
         addShelfs(recycler)
 
-        /*view.findViewById<CardView>(R.id.luettu).setOnClickListener {
-            val bundle = Bundle()
-            bundle.putString("shelf", it.toString())
-            val bookListFragment = BookListFragment()
-            bookListFragment.arguments = bundle
-            findNavController().navigate(R.id.action_profileFragment_to_bookListFragment, bundle)
-        }*/
+        view.findViewById<ImageView>(R.id.profilePicture).setOnClickListener {
+            val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            startActivityForResult(takePictureIntent, REQUEST_CODE)
+        }
 
         view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
             openDialog()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if(requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK){
+            val takenImage = data?.extras?.get("data") as Bitmap
+            profilePicture.setImageBitmap(takenImage)
+        }else{
+            super.onActivityResult(requestCode, resultCode, data)
         }
     }
 
