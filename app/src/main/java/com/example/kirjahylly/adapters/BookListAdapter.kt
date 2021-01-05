@@ -1,12 +1,18 @@
 package com.example.kirjahylly.adapters
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.example.kirjahylly.MainActivity
 import com.example.kirjahylly.R
 import com.squareup.picasso.Picasso
 
@@ -14,13 +20,10 @@ class BookListAdapter(private val bookTitles: List<String>, private val bookImag
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        val textView: TextView
-        val imageView: ImageView
+        val textView: TextView = view.findViewById(R.id.recyclerTextView)
+        val imageView: ImageView = view.findViewById(R.id.recyclerImageView)
+        val itemHolder: ConstraintLayout = view.findViewById(R.id.itemHolder)
 
-        init {
-            textView = view.findViewById(R.id.recyclerTextView)
-            imageView = view.findViewById(R.id.recyclerImageView)
-        }
     }
 
     // Create new views (invoked by the layout manager)
@@ -40,6 +43,15 @@ class BookListAdapter(private val bookTitles: List<String>, private val bookImag
         viewHolder.textView.text = bookTitles[position]
         val img = viewHolder.imageView
         Picasso.get().load(bookImages[position]).into(img)
+
+        viewHolder.itemHolder.setOnClickListener {
+            AlertDialog.Builder(viewHolder.itemHolder.context)
+                .setTitle("Lisää kirja")
+                .setMessage("Haluatko lisätä kirjan kirjahyllyysi?")
+                .setPositiveButton("Kyllä", DialogInterface.OnClickListener { dialog, which ->  Toast.makeText(viewHolder.itemHolder.context, "clicked $position", Toast.LENGTH_SHORT).show()})
+                .setNegativeButton("Ei", null)
+                .show()
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)

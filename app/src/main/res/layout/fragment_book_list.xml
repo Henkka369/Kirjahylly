@@ -8,10 +8,11 @@
     tools:context=".BookListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/bookList"
+        android:id="@+id/shelfBooks"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/recyclerview_item"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

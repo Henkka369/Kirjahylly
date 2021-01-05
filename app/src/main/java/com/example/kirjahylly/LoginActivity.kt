@@ -15,6 +15,14 @@ import com.google.firebase.ktx.Firebase
 class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
 
+    override fun onStart() {
+        super.onStart()
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            launchActivity()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)

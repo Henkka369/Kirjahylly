@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/addBookFragment"
         android:name="com.example.kirjahylly.AddBookFragment"
-        android:label="fragment_add_book"
+        android:label="Lisää kirja"
         tools:layout="@layout/fragment_add_book" />
     <fragment
         android:id="@+id/bookListFragment"

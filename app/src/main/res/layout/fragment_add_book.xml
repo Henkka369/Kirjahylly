@@ -9,7 +9,7 @@
 
     <EditText
         android:id="@+id/search_box"
-        android:layout_width="330dp"
+        android:layout_width="340dp"
         android:layout_height="45dp"
         android:layout_marginTop="16dp"
         android:ems="10"
@@ -35,8 +35,8 @@
         android:id="@+id/bookList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_marginTop="14dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_button" />

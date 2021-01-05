@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/itemHolder"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
@@ -19,12 +19,12 @@
         android:id="@+id/recyclerTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxWidth="350dp"
+        android:maxLines="1"
         android:padding="8dp"
         android:text="Sample Item"
         android:textSize="16sp"
-        android:maxWidth="350dp"
-        android:maxLines="1"
-        android:ellipsize="end"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/recyclerImageView"
         app:layout_constraintTop_toTopOf="parent" />

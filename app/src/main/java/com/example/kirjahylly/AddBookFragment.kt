@@ -24,7 +24,7 @@ class AddBookFragment : Fragment() {
 
         view.findViewById<Button>(R.id.search_button).setOnClickListener {
             val userInput = view.findViewById<EditText>(R.id.search_box).text.toString()
-            val url = URL("https://www.goodreads.com/search.xml?key=qnlK0k941lTJFUqoDvJyA&q=" + userInput)
+            val url = URL("https://www.goodreads.com/search.xml?key=qnlK0k941lTJFUqoDvJyA&q=$userInput")
             UrlLoader(url, view).execute()
         }
     }
