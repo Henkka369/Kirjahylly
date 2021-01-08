@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -35,6 +36,7 @@ class BookListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as AppCompatActivity).supportActionBar?.title = shelf
 
         val bookTitles = mutableListOf<String>()
         val bookImages = mutableListOf<String>()
@@ -50,8 +52,12 @@ class BookListFragment : Fragment() {
                             if (item.key == shelf) {
                                 val books = (item.value as HashMap<*, *>)
                                 for (book in books) {
-                                    bookTitles.add((book.value as HashMap<*,*>)["title"].toString())
-                                    bookImages.add((book.value as HashMap<*,*>)["img_url"].toString())
+                                    val title = (book.value as HashMap<*,*>)["title"].toString()
+                                    if (title != "seed") {
+                                        bookTitles.add(title)
+                                        bookImages.add((book.value as HashMap<*,*>)["img_url"].toString())
+                                    }
+
                                 }
                             }
                         }

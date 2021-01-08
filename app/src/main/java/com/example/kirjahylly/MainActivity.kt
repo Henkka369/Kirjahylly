@@ -11,6 +11,7 @@ import androidx.navigation.ui.NavigationUI
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.log_out -> {
                 Firebase.auth.signOut()
+                try { this.deleteFile("profile_picture") } catch (e: Exception) {}
                 intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
                 finish()

@@ -9,6 +9,7 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class RegisterActivity : AppCompatActivity() {
@@ -55,5 +56,25 @@ class RegisterActivity : AppCompatActivity() {
                 }
                 finish()
             }
+
+        val db = Firebase.firestore
+
+        val seed = mapOf<Any, Any>(
+            "Haluan lukea" to mapOf<Any, Any>(
+                "seed" to mapOf<Any, Any>(
+                    "title" to "seed"
+                )
+            ),
+            "Luettu" to mapOf<Any, Any>(
+                "seed" to mapOf<Any, Any>(
+                    "title" to "seed"
+                )
+            )
+        )
+
+        db.collection("users").document(Firebase.auth.currentUser?.uid.toString())
+            .set(seed)
+            .addOnSuccessListener { Log.d("TAG", "Käyttäjän hyllyt lisätty") }
+            .addOnFailureListener { e -> Log.w("TAG", "Hyllyjen lisäys epäonnistui", e) }
     }
 }

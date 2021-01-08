@@ -1,7 +1,9 @@
 package com.example.kirjahylly.adapters
 
 import android.app.AlertDialog
+import android.content.ContentValues
 import android.content.DialogInterface
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.TextureView
 import android.view.View
@@ -14,6 +16,9 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kirjahylly.MainActivity
 import com.example.kirjahylly.R
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 
 class BookListAdapter(private val bookTitles: List<String>, private val bookImages: List<String>): RecyclerView.Adapter<BookListAdapter.ViewHolder>() {
@@ -48,7 +53,7 @@ class BookListAdapter(private val bookTitles: List<String>, private val bookImag
             AlertDialog.Builder(viewHolder.itemHolder.context)
                 .setTitle("Lisää kirja")
                 .setMessage("Haluatko lisätä kirjan kirjahyllyysi?")
-                .setPositiveButton("Kyllä", DialogInterface.OnClickListener { dialog, which ->  Toast.makeText(viewHolder.itemHolder.context, "clicked $position", Toast.LENGTH_SHORT).show()})
+                .setPositiveButton("Kyllä", DialogInterface.OnClickListener { dialog, which ->  addBook(bookTitles[position], bookImages[position], viewHolder)})
                 .setNegativeButton("Ei", null)
                 .show()
         }
@@ -57,4 +62,38 @@ class BookListAdapter(private val bookTitles: List<String>, private val bookImag
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = bookTitles.size
 
+    private fun addBook(title: String, url: String, viewHolder: ViewHolder) {
+        val db = Firebase.firestore
+        var books = HashMap<Any, Any>()
+
+        var activeShelf = viewHolder.itemView.context.openFileInput("activeShelf").bufferedReader().useLines { lines ->
+            lines.fold("") { shelf, name ->
+                "$shelf$name"
+            }
+        }
+
+        db.collection("users").document(Firebase.auth.currentUser?.uid.toString())
+            .get()
+            .addOnSuccessListener { document ->
+                if (document != null) {
+                    val data = document.data
+                    if (data != null) {
+                        val shelf = data[activeShelf] as HashMap<*, *>
+                        for (book in shelf) {
+                            books[book.key] = book.value
+                        }
+                    }
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w(ContentValues.TAG, "Error getting documents.", exception)
+            }
+            .addOnCompleteListener {
+                books[title] = mapOf("title" to title, "img_url" to url)
+                db.collection("users").document(Firebase.auth.currentUser?.uid.toString())
+                    .update(mapOf(
+                        activeShelf to books
+                    ))
+            }
+    }
 }

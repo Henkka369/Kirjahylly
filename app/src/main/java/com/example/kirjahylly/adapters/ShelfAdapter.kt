@@ -1,6 +1,7 @@
 package com.example.kirjahylly.adapters
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -36,14 +37,18 @@ class ShelfAdapter(private val names: List<String>, private val counts: List<Str
 
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
         viewHolder.textView1.text = names[position]
         viewHolder.textView2.text = counts[position]
 
         viewHolder.itemHolder.setOnClickListener {
-            //Toast.makeText(viewHolder.itemHolder.context, "clicked $position", Toast.LENGTH_SHORT).show()
+            val filename = "activeShelf"
+            val fileContents = names[position]
+            viewHolder.itemView.context.openFileOutput(filename, Context.MODE_PRIVATE).use {
+                it.write(fileContents.toByteArray())
+            }
+
             val bundle = Bundle()
             bundle.putString("shelf", names[position])
             val bookListFragment = BookListFragment()

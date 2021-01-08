@@ -6,13 +6,17 @@ import android.content.ContentValues.TAG
 import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
+import android.widget.ArrayAdapter
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatDialogFragment
+import androidx.recyclerview.widget.RecyclerView
+import com.example.kirjahylly.adapters.ShelfAdapter
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class AddShelfFragment : AppCompatDialogFragment() {
+class AddShelfFragment() : AppCompatDialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
@@ -30,19 +34,20 @@ class AddShelfFragment : AppCompatDialogFragment() {
                         // Koodi, joka vie hyllyn tietokantaan
                         val shelfName = getDialog()?.findViewById<EditText>(R.id.editTextTextPersonName)?.text.toString()
                         val newBook = hashMapOf<Any?, Any?>(
-                            "Name" to "Tuntematon Sotilas",
-                            "Author" to "Väinö Linna"
+                            "title" to "seed"
                         )
                         val newShelf = hashMapOf<Any?, Any?>(
-                            "Kirja" to newBook
+                            "seed" to newBook
                         )
                         val newCollection = hashMapOf<Any?, Any?>(
                             shelfName to newShelf
                         )
 
-                        db.collection("users").document("mG5qEcDsNNVIo3hm71SnorAyBTP2")
+                        db.collection("users").document(Firebase.auth.currentUser?.uid.toString())
                             .set(newCollection, SetOptions.merge())
-                            .addOnSuccessListener { Log.d(TAG, "Kirjahyllyn lisäys onnistui!") }
+                            .addOnSuccessListener {
+                                Log.d(TAG, "Kirjahyllyn lisäys onnistui!")
+                            }
                             .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
                     })
                 .setNegativeButton("Peruuta",

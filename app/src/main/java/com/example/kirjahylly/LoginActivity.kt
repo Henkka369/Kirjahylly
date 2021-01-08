@@ -30,11 +30,8 @@ class LoginActivity : AppCompatActivity() {
         auth = Firebase.auth
 
         findViewById<Button>(R.id.signin).setOnClickListener {
-            //val email = findViewById<EditText>(R.id.username).text.toString()
-            //val password = findViewById<EditText>(R.id.password).text.toString()
-            // TESTAUKSEN AJAKSI KIINTEÄT TUNNUKSET
-            val email = "hoppi@hotmail.com"
-            val password = "Savonia1"
+            val email = findViewById<EditText>(R.id.username).text.toString()
+            val password = findViewById<EditText>(R.id.password).text.toString()
 
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
